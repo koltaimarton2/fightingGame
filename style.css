@@ -3,3 +3,8 @@ canvas {
     margin: auto;
     border: 1px solid black;
 }
+
+@font-face {
+    font-family: Font;
+    src: url(DoubleFeature20.ttf);
+}
