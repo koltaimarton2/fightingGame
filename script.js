@@ -1,18 +1,21 @@
 const canvas = document.querySelector("canvas")
 const ctx = canvas.getContext('2d')
 
-const gravity = 0.2
+const gravity = 0.4
+
+let canJump = false
 
 class Character {
     constructor(position, speed) {
         this.position = position
         this.speed = speed
         this.height = 300
+        this.width = 75
     }
 
     draw() {
         ctx.fillStyle = "red"
-        ctx.fillRect(this.position.x, this.position.y,75, this.height)
+        ctx.fillRect(this.position.x, this.position.y,this.width, this.height)
         
     }
     update() {
@@ -22,12 +25,14 @@ class Character {
 
         if (this.position.y + this.height + this.speed.y >= canvas.height) {
             this.speed.y = 0
+            canJump = true;
         }
         else {
             this.speed.y += gravity
         }
     }
 }
+
 
 
 const keys = {
@@ -37,12 +42,13 @@ const keys = {
     d: {
         pressed: false
     },
-    w: {
+    ArrowLeft: {
         pressed: false
     },
-    s: {
-        pressed:false
+    ArrowRight: {
+        pressed: false
     }
+
 
 }
 
@@ -53,54 +59,76 @@ const player = new Character(
     { x: 0, y: 0 }
 );
 
+
+const player2 = new Character(
+    { x: 500, y: 262.5},
+    {x: 0, y: 0}
+)
+
+let lastKey;
+
+
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     player.update();
+
+    player.speed.x = 0;
+    
+    if (keys.a.pressed && lastKey === 'a') {
+        if (player.position.x != 0) {
+            player.speed.x = -10
+        }
+    }
+    else if (keys.d.pressed && lastKey === 'd') {
+        if (player.position.x != canvas.width  - player.width + 5 ) {
+            player.speed.x = 10
+        }
+
+
+    if (keys.ArrowLeft.pressed && lastKey === 'ArrowLeft') {
+        if (player.position.x != 0) {
+            player.speed.x = -10
+        }
+    }
+    else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') {
+        if (player.position.x != canvas.width  - player.width + 5 ) {
+            player.speed.x = 10
+        }
+    }}
+
     requestAnimationFrame(animate);
 }
 
 
 function moveCharacter(e) {
-    e.preventDefault()
-    if (e.code == "ArrowDown"|| e.code == "KeyS") {
-        e.preventDefault()
-        player.speed.x = 0
-        player.speed.y = 10 
-        console.log("down")  
+    switch (e.key) {
+        case 'a':
+            keys.a.pressed = true;
+            lastKey = 'a'
+            break;
+        case 'd':
+            keys.d.pressed = true;
+            lastKey = 'd'
+            break;
+        case 'w':
+            if (canJump) {
+                player.speed.y = -7.5
+                lastKey = 'w'
+                canJump = false
+            }
+            break
+
     }
-    if (e.code == "ArrowUp" && e.code != lastKey || e.code == "KeyW" &&  e.code != lastKey) {
-        e.preventDefault()
-        player.speed.x = 0
-        player.speed.y = -10
-        console.log("up")  
-    }
-    if (e.code == "ArrowLeft"||e.code == "KeyA") {
-        e.preventDefault()
-        player.speed.x = -10
-        player.speed.y = 0
-        console.log("left")  
-    }
-    if (e.code == "ArrowRight"||e.code == "KeyD") {
-        e.preventDefault()
-        player.speed.x =10
-        player.speed.y = 0
-        console.log("right")  
-    }
-    lastKey = e.code
 }
 
 function stopCharacter(e) {
-    if (
-        e.code === "ArrowDown" || e.code === "KeyS" ||
-        e.code === "ArrowUp" || e.code === "KeyW"
-    ) {
-        player.speed.y = 0;
-    }
-    if (
-        e.code === "ArrowLeft" || e.code === "KeyA" ||
-        e.code === "ArrowRight" || e.code === "KeyD"
-    ) {
-        player.speed.x = 0;
+    switch (e.key) {
+        case 'a':
+            keys.a.pressed = false;
+            break;
+        case 'd':
+            keys.d.pressed = false;
+            break;
     }
 }
 
