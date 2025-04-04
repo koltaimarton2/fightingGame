@@ -1,7 +1,23 @@
+body {
+    font-family: Font;
+    
+    
+}
+
+#td 
+{
+    display: block;
+    margin: auto;
+    background-image: url(Images/tv.png);
+    background-repeat: no-repeat;
+    padding:  20px;
+}
 canvas {
     display: block;
     margin: auto;
     border: 1px solid black;
+    background-image: url(Images/BattleArena.png);
+    background-size: cover;
 }
 
 @font-face {
