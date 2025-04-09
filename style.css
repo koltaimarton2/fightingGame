@@ -1,20 +1,28 @@
 body {
     font-family: Font;
-    
-    
+    background-color: rgb(20, 14, 56);
+}
+h1 {
+    color: maroon;
+    font-size: 300%;
+    text-align: center;
+    margin: 0;
 }
 
-#td 
+#tv
 {
     display: block;
     margin: auto;
-    background-image: url(Images/tv2.png);
+    background-image: url(Images/tv-removebg-preview.png);
     background-repeat: no-repeat;
     background-size: cover;
-    padding:  20px;
+    padding: 20px 16.5px 20px 20px   ;
+    width:  fit-content;
     padding-bottom: 200px;
     
 }
+
+
 canvas {
     display: block;
     margin: auto;
@@ -24,6 +32,6 @@ canvas {
 }
 
 @font-face {
-    font-family: Font;
-    src: url(DoubleFeature20.ttf);
+    font-family: Font;  
+    src: url(Images/DoubleFeature20.ttf);
 }
