@@ -8,9 +8,12 @@ body {
 {
     display: block;
     margin: auto;
-    background-image: url(Images/tv.png);
+    background-image: url(Images/tv2.png);
     background-repeat: no-repeat;
+    background-size: cover;
     padding:  20px;
+    padding-bottom: 200px;
+    
 }
 canvas {
     display: block;
