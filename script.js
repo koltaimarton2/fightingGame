@@ -8,22 +8,32 @@ class Character {
     constructor(position, speed) {
         this.position = position
         this.speed = speed
-        this.height = 300
+        this.height = 175
         this.width = 75
         this.canJump
+        this.lastKey 
+        this.attackBox = {
+            position: this.position ,
+            width: 100 ,
+            height: 50,
+        }
     }
 
     draw() {
         ctx.fillStyle = "red"
         ctx.fillRect(this.position.x, this.position.y,this.width, this.height)
         
+        ctx.fillStyle = "green"
+        ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)
+
+
     }
     update() {
         this.draw()
         this.position.x += this.speed.x
         this.position.y += this.speed.y
 
-        if (this.position.y + this.height + this.speed.y >= canvas.height) {
+        if (this.position.y + this.height + this.speed.y >= canvas.height - 130) {
             this.speed.y = 0
             this.canJump = true;
         }
@@ -55,13 +65,13 @@ const keys = {
 
 
 const player = new Character(
-    { x: 100, y: 200.5 },
+    { x: 100, y: 0},
     { x: 0, y: 0 }
 );
 
 
 const player2 = new Character(
-    { x: 500, y: 200.5},
+    { x: 500, y: 0},
     {x: 0, y: 0}
 )
 
@@ -89,7 +99,7 @@ function animate() {
     }
 
 
-    else if (keys.ArrowLeft.pressed && lastKey2 === 'ArrowLeft') {
+    if (keys.ArrowLeft.pressed && lastKey2 === 'ArrowLeft') {
         if (player2.position.x != 0) {
             player2.speed.x = -10
         }
@@ -99,6 +109,17 @@ function animate() {
             player2.speed.x = 10
         }
     }
+
+
+    if (
+        player.attackBox.position.x + player.attackBox.width >= player2.position.x  && 
+        player.attackBox.position.x <= player2.position.x + player2.width &&
+    )
+    {
+        
+    }
+
+
     
     requestAnimationFrame(animate);
 }
