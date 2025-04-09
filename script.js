@@ -3,7 +3,6 @@ const ctx = canvas.getContext('2d')
 
 const gravity = 0.4
 
-let canJump = false
 
 class Character {
     constructor(position, speed) {
@@ -11,6 +10,7 @@ class Character {
         this.speed = speed
         this.height = 300
         this.width = 75
+        this.canJump
     }
 
     draw() {
@@ -25,7 +25,7 @@ class Character {
 
         if (this.position.y + this.height + this.speed.y >= canvas.height) {
             this.speed.y = 0
-            canJump = true;
+            this.canJump = true;
         }
         else {
             this.speed.y += gravity
@@ -55,24 +55,27 @@ const keys = {
 
 
 const player = new Character(
-    { x: 100, y: 262.5 },
+    { x: 100, y: 200.5 },
     { x: 0, y: 0 }
 );
 
 
 const player2 = new Character(
-    { x: 500, y: 262.5},
+    { x: 500, y: 200.5},
     {x: 0, y: 0}
 )
 
 let lastKey;
+let lastKey2;
 
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     player.update();
+    player2.update();
 
     player.speed.x = 0;
+    player2.speed.x = 0;
     
     if (keys.a.pressed && lastKey === 'a') {
         if (player.position.x != 0) {
@@ -83,21 +86,23 @@ function animate() {
         if (player.position.x != canvas.width  - player.width + 5 ) {
             player.speed.x = 10
         }
+    }
 
 
-    if (keys.ArrowLeft.pressed && lastKey === 'ArrowLeft') {
-        if (player.position.x != 0) {
-            player.speed.x = -10
+    else if (keys.ArrowLeft.pressed && lastKey2 === 'ArrowLeft') {
+        if (player2.position.x != 0) {
+            player2.speed.x = -10
         }
     }
-    else if (keys.ArrowRight.pressed && lastKey === 'ArrowRight') {
-        if (player.position.x != canvas.width  - player.width + 5 ) {
-            player.speed.x = 10
+    else if (keys.ArrowRight.pressed && lastKey2 === 'ArrowRight') {
+        if (player2.position.x != canvas.width  - player2.width + 5 ) {
+            player2.speed.x = 10
         }
-    }}
-
+    }
+    
     requestAnimationFrame(animate);
 }
+
 
 
 function moveCharacter(e) {
@@ -111,10 +116,23 @@ function moveCharacter(e) {
             lastKey = 'd'
             break;
         case 'w':
-            if (canJump) {
+            if (player.canJump) {
                 player.speed.y = -7.5
-                lastKey = 'w'
-                canJump = false
+                player.canJump = false
+            }
+            break
+        case 'ArrowLeft':
+            keys.ArrowLeft.pressed = true;
+            lastKey2 = 'ArrowLeft'
+            break;
+        case 'ArrowRight':
+            keys.ArrowRight.pressed = true;
+            lastKey2 = 'ArrowRight'
+            break;
+        case 'ArrowUp':
+            if (player2.canJump) {
+                player2.speed.y = -7.5
+                player2.canJump = false
             }
             break
 
@@ -128,6 +146,12 @@ function stopCharacter(e) {
             break;
         case 'd':
             keys.d.pressed = false;
+            break;
+        case 'ArrowLeft':
+            keys.ArrowLeft.pressed = false
+            break;
+        case 'ArrowRight':
+            keys.ArrowRight.pressed = false
             break;
     }
 }
