@@ -17,6 +17,8 @@ class Character {
             width: 100 ,
             height: 50,
         }
+        this.isAttacking
+        
     }
 
     draw() {
@@ -41,6 +43,13 @@ class Character {
             this.speed.y += gravity
         }
     }
+
+    attack() {
+        this.isAttacking = true
+        setTimeout(() => {
+            this.isAttacking = false
+        }, 100)
+    }
 }
 
 
@@ -56,6 +65,9 @@ const keys = {
         pressed: false
     },
     ArrowRight: {
+        pressed: false
+    },
+    e: {
         pressed: false
     }
 
@@ -98,6 +110,7 @@ function animate() {
         }
     }
 
+    
 
     if (keys.ArrowLeft.pressed && lastKey2 === 'ArrowLeft') {
         if (player2.position.x != 0) {
@@ -112,12 +125,16 @@ function animate() {
 
 
     if (
-        player.attackBox.position.x + player.attackBox.width >= player2.position.x  && 
-        player.attackBox.position.x <= player2.position.x + player2.width &&
+        player.attackBox.position.x + player.attackBox.width >= player2.position.x  &&
+        player.attackBox.position.x <= player2.position.x + player2.width && 
+        player.attackBox.position.y + player.attackBox.height >= player2.position.y  &&
+        player.attackBox.position.y <= player2.position.y + player2.height
+        
     )
     {
-        
+        console.log("KURVAAAA")
     }
+    
 
 
     
@@ -142,6 +159,9 @@ function moveCharacter(e) {
                 player.canJump = false
             }
             break
+        case 'e':
+            player.attack()
+            break
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = true;
             lastKey2 = 'ArrowLeft'
@@ -156,6 +176,7 @@ function moveCharacter(e) {
                 player2.canJump = false
             }
             break
+        
 
     }
 }
