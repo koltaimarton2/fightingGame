@@ -1,11 +1,18 @@
-const canvas = document.querySelector("canvas")
-const ctx = canvas.getContext('2d')
+import { Attack  } from "./attacks.js"
+import { Melee } from "./attacks.js"
+import { Ranged } from "./attacks.js"
 
-const gravity = 0.4
+
+
+export const canvas = document.querySelector("canvas")
+export const ctx = canvas.getContext('2d')
+
+const gravity = 0.7
 
 
 class Character {
-    constructor(position, speed, color, offset) {
+    constructor(index, position, speed, color, offset) {
+        this.index = index
         this.position = position
         this.speed = speed
         this.height = 175
@@ -14,6 +21,7 @@ class Character {
         this.facingDirection = 1;
         this.isCrouching = false
         this.lastKey 
+        this.health = 100
         this.color = color
         this.attackBox = {
             position: {
@@ -25,6 +33,7 @@ class Character {
             height: 50,
         }
         this.isAttacking
+        this.attacks = [];
         
     }
 
@@ -62,13 +71,31 @@ class Character {
         else {
             this.speed.y += gravity
         }
+        this.attacks.forEach(attack => {
+            if (attack instanceof Melee) {
+                attack.update(16)
+            }
+            else if (attack instanceof Ranged) {
+                switch (this.index) {
+                    case 1:
+                        attack.update(player2)
+                    case 2:
+                        attack.update(player)
+                }
+            }
+        })
+
+        if (this.health <= 0) {
+            console.log("Dead.")
+        }
+
+        ;
     }
 
-    attack() {
-        this.isAttacking = true
-        setTimeout(() => {
-            this.isAttacking = false
-        }, 100)
+    attack(index) {
+        if (this.attacks[index]) {
+            this.attacks[index].start()
+        }
     }
 }
 
@@ -96,20 +123,34 @@ const keys = {
 
 
 
-const player = new Character(
+export const player = new Character(
+    1,
     { x: 100, y: 0},
     { x: 0, y: 0 },
     'red',
     { x: 37.5, y: 0}
 );
 
+player.attacks = [
+    new Melee(player),
+    new Ranged(player),
+    new Ranged(player)
+];
+ 
 
-const player2 = new Character(
+export const player2 = new Character(
+    2,
     { x: 500, y: 0},
     {x: 0, y: 0},
     'blue',
     { x: 37.5, y: 0}
 )
+
+player2.attacks = [
+    new Ranged(player2),
+    new Melee(player2),
+    new Melee(player2)
+];
 
 let lastKey;
 let lastKey2;
@@ -192,11 +233,17 @@ function animate() {
     {
         player.isAttacking = false
         console.log("KURVAAAA")
+        player2.health -= 10
+        console.log(player2.health)
     }
     if (detectCollision(player2,player) &&player2.isAttacking    )
     {
         player2.isAttacking = false
         console.log("KURVAAAA")
+        player.health -= 10
+        console.log(player.health)
+
+
     }
     
 
@@ -219,7 +266,7 @@ function moveCharacter(e) {
             break;
         case 'w':
             if (player.canJump) {
-                player.speed.y = -7.5
+                player.speed.y = -15
                 player.canJump = false
             }
             break
@@ -228,7 +275,13 @@ function moveCharacter(e) {
             
             break
         case 'e':
-            player.attack()
+            player.attack(0)
+            break
+        case 'r':
+            player.attack(1)
+            break
+        case 'f':
+            player.attack(2)
             break
         case 'ArrowLeft':
             keys.ArrowLeft.pressed = true;
@@ -240,7 +293,7 @@ function moveCharacter(e) {
             break;
         case 'ArrowUp':
             if (player2.canJump) {
-                player2.speed.y = -7.5
+                player2.speed.y = -15
                 player2.canJump = false
             }
             break
@@ -248,7 +301,13 @@ function moveCharacter(e) {
             player2.isCrouching = true;
             break
         case ' ':
-            player2.attack()
+            player2.attack(0)
+            break
+        case 'k':
+            player2.attack(1)
+            break
+        case 'l':
+            player2.attack(0)
             break
         
 
