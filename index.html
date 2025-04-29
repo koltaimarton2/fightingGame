@@ -10,8 +10,62 @@
 <body>
     <h1>Fighting Game</h1>
     <div id="tv">
-        <canvas width="1000" height="562,5"></canvas>
+        <canvas width="1000" height="562,5">
+            
+        </canvas>
+        <div id="healthContainerA" style="width: 450px;">
+            <div style="width: 450px;" id="healthBarA"></div>
+        </div>
+        <h2 class="names">Red fighter</h2>
+        <div id="healthContainerB" style="width: 450px;">
+            <div id="healthBarB" style=" width: 450px;"></div>
+        </div>
+        <h2 id="right-name" class="names">Blue fighter</h2>
+        <div id="timer">
+            <h2 id="time">60</h2>
+        </div>
+        <div id="mainScreen">
+            <h2>Choose your map...</h2>
+            <div id="maps">
+                <button ><img id="arena" class="showcase" src="Images/arena.jpg" alt=" "></button>
+                <button ><img id="altar" class="showcase" src="Images/altar.jpg" alt=" "></button>
+                <button ><img id="ruins" class="showcase" src="Images/ruins.jpg" alt=" "></button>
+                <button ><img id="temple" class="showcase" src="Images/temple.jpg" alt=" "></button>
+            </div>
+        </div>
+        <div id="fighterScreenRed" style="background-color: red;">
+            <h2>Red Fighter</h2>
+            <h2>Choose your ranged style...</h2>
+            <div class="fighters">
+                <button id="heavy">Heavy Hitter <p>Long Cooldown - High Damage</Data></p></button>
+                <button id="fast">Fast & Furious <p>Short Cooldown - Low Damage</p></button>
+                <button id="mid">Mediocre Mark <p>Mid Cooldown - Mid Damage</p></button>
+            </div>
+        </div>
+
+        <div id="fighterScreenBlue" style="background-color: blue;">
+            <h2>Blue Fighter</h2>
+            <h2>Choose your ranged style...</h2>
+            <div class="fighters">
+                <button id="heavy2">Heavy Hitter <p>Long Cooldown - High Damage</Data></p></button>
+                <button id="fast2">Fast & Furious <p>Short Cooldown - Low Damage</p></button>
+                <button id="mid2">Mediocre Mark <p>Mid Cooldown - Mid Damage</p></button>
+            </div>
+        </div>
+
+        <div id="lossScreen">
+            <h2>Game over</h2>
+            <p id="win">Blank Fighter won</p>
+            <button id="restart">Restart</button>
+        </div>
+
+        
     </div>
+
+
+
+
+    
     <script type="module" src="script.js"></script>
 </body>
 </html>

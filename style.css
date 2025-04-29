@@ -1,12 +1,20 @@
 body {
-    font-family: Font;
     background-color: rgb(20, 14, 56);
+    font-family: Font-bit-bold;
+    
 }
 h1 {
+    font-family: Font;
     color: maroon;
     font-size: 300%;
     text-align: center;
     margin: 0;
+}
+
+h2 {
+    font-family: Font-bit-bold;
+    text-align: center;
+    font-size: 250%;
 }
 
 #tv
@@ -26,12 +34,193 @@ h1 {
 canvas {
     display: block;
     margin: auto;
-    border: 1px solid black;
     background-image: url(Images/BattleArena.png);
     background-size: cover;
 }
 
+
+#timer {
+    position: fixed;
+    top: 115px;
+    border-radius: 10px 10px 100px 100px;
+    width: 70px;
+    height: 70px;
+    margin-left: 465px;
+    background-color: black;
+}
+
+#time {
+    color: white;
+    font-size: 145%;
+}
+
+#healthContainerA {
+    position: fixed;
+    height: 20px;
+    width: 450px;
+    top: 130px;
+    margin-left: 20px;
+    background-color: antiquewhite;
+}
+
+#healthContainerB {
+    position: fixed;
+    height: 20px;
+    top: 130px;
+    margin-left: 530px;
+    background-color: antiquewhite;
+}
+
+.names {
+    position: fixed;
+    top: 125px;
+    font-size: 175%;
+    margin-left: 20px;
+    color: wheat;
+}
+
+#right-name {
+    margin-left: 762px !important;
+    text-align: right;
+}
+
+#healthBarA {
+    
+    background-color: red;
+    height: 20px;
+    display: block;
+    margin-left: auto;
+    /* width: 450px; */
+}
+
+#healthBarB {
+    background-color: red;
+    height: 20px;
+    
+}
+
+
+#mainScreen {
+    position: fixed;
+    top: 113px;
+    width: 1006px;
+    z-index: 3;
+    height: 565.5px;
+    display: block;
+    margin: auto;
+    background-color: cadetblue;
+    
+}
+
+#lossScreen {
+    position: fixed;
+    top: 113px;
+    width: 1006px;
+    height: 565.5px;
+    font-size: 200%;
+    display: block;
+    margin: auto;
+    display: none;
+    text-align: center;
+    background-color: cadetblue;
+}
+
+#lossScreen  button{
+    font-family: Font-bit-bold;
+    background-color: transparent;
+    border: 5px solid rgb(33, 54, 54);
+    width: 300px;
+    font-size: 150%;
+}
+
+#fighterScreenRed {
+    position: fixed;
+    top: 113px;
+    z-index: 2;
+    width: 1006px;
+    height: 565.5px;
+    display: block;
+    margin: auto;
+
+    
+}
+
+#fighterScreenBlue {
+    position: fixed;
+    top: 113px;
+    z-index: 1;
+    width: 1006px;
+    height: 565.5px;
+    display: block;
+    margin: auto;
+
+    
+}
+
+
+.fighters {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.fighters button {
+    font-family: Font-bit-bold;
+    background-color: transparent;
+    width: 300px;
+    font-size: 250%;
+}
+
+.fighters button p {
+    font-family: Font-bit-bold;
+    
+    font-size: 65%;
+}
+
+
+.icon {
+    width: 50px;
+}
+
+#maps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+
+button {
+    padding: 0;
+    margin: 0;
+    margin-top: 30px;
+    border: 0;
+    border-radius: 10px;
+    height: fit-content ;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.showcase {
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+    width: 300px;
+}
+
+
 @font-face {
     font-family: Font;  
     src: url(Images/DoubleFeature20.ttf);
+}
+
+@font-face {
+    font-family: Font-bit;
+    src: url(Images/PixeloidSans-mLxMm.ttf);
+}
+
+@font-face {
+    font-family: Font-bit-bold;
+    src: url(Images/PixeloidSansBold-PKnYd.ttf);
 }

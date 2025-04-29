@@ -180,10 +180,10 @@ class Character {
         ctx.restore();
         
         //if(this.index == 2) 
-        // if (this.isAttacking) {
-        //     ctx.fillStyle = "green"
-        //     ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)    
-        // }
+        if (this.isAttacking) {
+            ctx.fillStyle = "green"
+            ctx.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height)    
+        }
 
 
     }
@@ -192,7 +192,7 @@ class Character {
 
         updateOffset(player,player2)
 
-        this.attackBox.position.x = this.position.x + (this.attackBox.offset.x * this.facingDirection) + (this.facingDirection == 1 ? this.width/2 : 0)
+        this.attackBox.position.x = this.position.x + (this.attackBox.offset.x * this.facingDirection)
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y
 
         this.position.x += this.speed.x
@@ -236,15 +236,6 @@ class Character {
 
         if (this.health <= 0) {
             console.log("Dead.")
-            switch (this.index) {
-                case 1:
-                    document.getElementById("win").innerText = "Blue Fighter has won"
-                    break
-                case 2:
-                    document.getElementById("win").innerText = "Red Fighter has won"
-                    break
-            }
-            document.getElementById("lossScreen").style.display = "block"
         }
 
         ;
@@ -387,24 +378,24 @@ function animate() {
 
     if (detectCollision(player,player2) && player.isAttacking && !player.attackLanded)
     {
-        //player.isAttacking = false
+        player.isAttacking = false
         player.attackLanded = true
 
-        player2.health -= 2
+        player2.health -= 5
         let healthBarB = document.getElementById("healthBarB")
         let currentWidthB = parseInt(healthBarB.style.width, 10) || 0
-        healthBarB.style.width = (currentWidthB - 9) + "px"
+        healthBarB.style.width = (currentWidthB - 22.5) + "px"
         
     }
     if (detectCollision(player2,player) &&player2.isAttacking && !player2.attackLanded)
     {
-        //player2.isAttacking = false
+        player2.isAttacking = false
         player2.attackLanded = true
 
-        player.health -= 2
+        player.health -= 5
         let healthBarA = document.getElementById("healthBarA")
         let currentWidthA = parseInt(healthBarA.style.width, 10) || 0
-        healthBarA.style.width = (currentWidthA - 9) + "px"
+        healthBarA.style.width = (currentWidthA - 22.5) + "px"
 
 
     }
@@ -518,18 +509,6 @@ function decreaseTimer() {
         document.getElementById("time").innerText = time
     
     }
-    else {
-        if (player.health > player2.health) {
-            document.getElementById("win").innerText = "Red Fighter has won"
-        }
-        else if (player2.health > player.health) {
-            document.getElementById("win").innerText = "Blue Fighter has won"
-        }
-        else {
-            document.getElementById("win").innerText = "Draw"
-        }
-        document.getElementById("lossScreen").style.display = "block"
-    }
 
 }
 
@@ -615,10 +594,6 @@ document.querySelector("#mid").addEventListener("click", setRedFighter);
 document.querySelector("#heavy2").addEventListener("click", setBlueFighter);
 document.querySelector("#fast2").addEventListener("click", setBlueFighter);
 document.querySelector("#mid2").addEventListener("click", setBlueFighter);
-
-document.querySelector("#restart").addEventListener("click", () => {
-    location.reload()
-});
 
 
 document.addEventListener("keydown", moveCharacter)
